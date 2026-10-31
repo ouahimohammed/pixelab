@@ -1,0 +1,1 @@
+PixelLab is an independently implemented web application based on the processing concepts of swaylq/deai-image (https://github.com/swaylq/deai-image). Refer to the upstream project for its licensing terms. No upstream code is represented as original here.
