@@ -6,6 +6,7 @@ from io import BytesIO
 from zipfile import ZipFile, ZIP_DEFLATED
 import subprocess
 import sys
+import os
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 80 * 1024 * 1024
@@ -46,7 +47,7 @@ def process():
             if metadata_only:
                 command.append("--no-metadata")
             try:
-                run = subprocess.run(command, capture_output=True, text=True, timeout=100, cwd=folder)
+                run = subprocess.run(command, capture_output=True, text=True, timeout=100, cwd=folder, env={**os.environ, "TMPDIR": str(folder), "TMP": str(folder), "TEMP": str(folder)})
             except subprocess.TimeoutExpired:
                 return jsonify(error=f"Image {index}: processing timed out"), 504
             if run.returncode != 0 or not target.exists():
