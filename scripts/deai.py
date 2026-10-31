@@ -10,6 +10,7 @@ import sys
 import argparse
 import subprocess
 from pathlib import Path
+import tempfile
 from PIL import Image, ImageFilter, ImageEnhance
 import numpy as np
 
@@ -58,7 +59,7 @@ class ImageDeAIProcessor:
         self.strength = strength
         self.verbose = verbose
         self.config = self.STRENGTH_CONFIGS[strength]
-        self.temp_dir = Path("/tmp") / f"deai_{os.getpid()}"
+        self.temp_dir = Path(tempfile.gettempdir()) / f"deai_{os.getpid()}"
         self.temp_dir.mkdir(exist_ok=True)
         
         # Statistics
